@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:3.4.5"
+        classpath "io.spring.gradle:dependency-management-plugin:1.1.7"
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'com.tamtam'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '21'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':tamtam-api') {
+    dependencies {
+        implementation project(':tamtam-core')
+    }
+}
+
+project(':tamtam-batch') {
+    dependencies {
+        implementation project(':tamtam-core')
+    }
+}

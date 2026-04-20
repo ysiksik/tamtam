@@ -1,0 +1,4 @@
+rootProject.name = 'tamtam'
+include 'tamtam-core'
+include 'tamtam-api'
+include 'tamtam-batch'
