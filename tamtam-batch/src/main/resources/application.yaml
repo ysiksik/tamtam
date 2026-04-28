@@ -1,20 +1,51 @@
 spring:
   batch:
     job:
-      enabled: false
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: ALWAYS
   datasource:
-    url: jdbc:h2:file:~/tamtam-batchdb;AUTO_SERVER=true
+    url: jdbc:h2:file:~/testdb;AUTO_SERVER=true
     driver-class-name: org.h2.Driver
     username: sa
     password: test
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+  sql:
+    init:
+      mode: always
   h2:
     console:
       enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+logging:
+  level:
+    com.tamtam.core.infrastructure.tour.TourApiClient: DEBUG
+
+tour-api:
+  base-url: https://apis.data.go.kr/B551011/KorService2
+  service-key: 'JVQqzLMBjejBMtWELpALd0govcrAyi9mW2Si40yLvjQrMCcba35WV7kNjVopmaG93nBjKwZcJwxd/SPeDHDFOg=='
+  mobile-os: ETC
+  mobile-app: tamtam
+  type: json
+  arrange: C
+  content-type-id: 12
+  l-dong-regn-cd: 44
+  num-of-rows: 100
+  detail-image-yn: Y
+batch:
+  detail-image:
+    retry-limit: 5
+    skip-limit: 200
+    retry-429-backoff-millis: 3000
+    retry-5xx-backoff-millis: 1000
+    api-call-delay-millis: 0
